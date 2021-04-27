@@ -1,1 +1,1 @@
-web: gunicorn lemoonad.wsgi
+web: gunicorn config.wsgi
