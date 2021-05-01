@@ -11,7 +11,7 @@
 
 from django.db import models
 
-class Resturant(Models.Model):
+class Resturant(models.Model):
     '''
         Resturant Class 
         Descriptions:
