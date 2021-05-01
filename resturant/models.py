@@ -12,6 +12,7 @@
 from django.db import models
 
 class Resturant(models.Model):
+
     '''
         Resturant Class 
         Descriptions:
@@ -24,8 +25,8 @@ class Resturant(models.Model):
     cover = models.ImageField(upload_to='uploads/images/resturants',verbose_name='عکس رستوران',help_text='در اینجا میتوانید عکسی برای دیده شدن بهتر رستورانتان بگذارید')
     descriptions = models.TextField(verbose_name='درباره رستوران',help_text='در اینجا میتوانید درباره رستوران خود اطلاعاتی را وارد کنید')
     foods = models.ForeignKey('Foods',on_delete=models.SET_NULL,verbose_name="غذا ها")
-    created = models.DateTimeField(auto_now=True)
-    updated = models.DateTimeField(auto_now_add=True)
+    createdDate = models.DateTimeField(auto_now=True)
+    updatedDate = models.DateTimeField(auto_now_add=True)
 
 
     def __str__(self):
@@ -40,10 +41,12 @@ class Resturant(models.Model):
         ]     
 
 class Foods(models.Model):
+
     '''
         Foods Class
         No any special thing, just a simple table
     '''
+    
     title = models.CharField(max_length=120,verbose_name='اسم غذا')
     description = models.TextField(verbose_name='توضیحات کامل غذا',help_text='در اینجا میتوانید توضیحات کاملی از غذا ارائه کنید')
     cover = models.ImageField(upload_to='uploads/images/foods',verbose_name='عکس غذا',help_text='در اینجا میتوانید عکس محصول را برای جذب مشتری آپلود کنید')
@@ -51,8 +54,8 @@ class Foods(models.Model):
     # comments =
     price = models.DecimalField(max_digits=10,decimal_places=0,verbose_name='قیمت')
     pointByCheif = models.IntegerField(verbose_name='نمره آشپز',help_text='در اینجا نمره آشپز را وارد نمایید')
-    created = models.DateTimeField(auto_now=True)
-    updated = models.DateTimeField(auto_now_add=True)
+    createdDate = models.DateTimeField(auto_now=True)
+    updatedDate = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'{self.title} | {self.price}'
@@ -62,6 +65,33 @@ class Foods(models.Model):
         verbose_name_plural = 'غذا ها'
         order_with_respect_to = 'resturant'
 
+class Order(models.Model):
+
+    '''
+        Order Table
+        No any special thing, just a simple table
+    '''
+
+    name = models.CharField(max_length=150,blank=True,verbose_name='عنوان سفارش')
+    timeDelay = models.IntegerField(verbose_name='تایمر سفارش',blank=True)
+    # user =
+    foods = models.ManyToManyField(Foods,verbose_name='غذا های سفارش شده')
+    createdDate = models.DateTimeField(auto_now=True)
+    updatedDate = models.DateTimeField(auto_now_add=True)
 
 
-# pull requests in this file may not acceptable
+class Comments(models.Model):
+
+    '''
+        Comments Table
+        No any special thing, just a simple table
+    '''
+
+    # user =
+    body = models.TextField(verbose_name='نظر',help_text='در اینجا میتونید نظرتون رو وارد کنید')
+    createdDate = models.DateTimeField(auto_now=True)
+    updatedDate = models.DateTimeField(auto_now_add=True)
+
+
+
+# pull requests in this file may not acceptable  
