@@ -18,6 +18,7 @@ class User(AbstractBaseUser):
     email = models.EmailField(max_length=120,verbose_name='ایمیل',help_text='ایمیلتونو به شکل صحیح وارد کنید',unique=True)
     first_name = models.CharField(max_length=100,verbose_name='نام',help_text='در اینجا نام خود را وارد کنید')
     last_name = models.CharField(max_length=100,verbose_name='نام خانوادگی',help_text='در اینجا نام خانوادگی خود را وارد کنید')
+    birth_date = models.DateField(verbose_name='تاریخ تولد')
     is_active = models.BooleanField(default=True) 
     is_admin = models.BooleanField(default=False) 
 

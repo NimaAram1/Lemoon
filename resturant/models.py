@@ -10,6 +10,7 @@
 
 
 from django.db import models
+from django.contrib.auth import get_user_model
 
 class Resturant(models.Model):
 
@@ -51,7 +52,7 @@ class Foods(models.Model):
     description = models.TextField(verbose_name='توضیحات کامل غذا',help_text='در اینجا میتوانید توضیحات کاملی از غذا ارائه کنید')
     cover = models.ImageField(upload_to='uploads/images/foods',verbose_name='عکس غذا',help_text='در اینجا میتوانید عکس محصول را برای جذب مشتری آپلود کنید')
     resturant = models.OneToOneField(Resturant,on_delete=models.CASCADE,verbose_name="رستورانی که این غذا را پخت میکند") 
-    # comments =
+    comments = models.ManyToManyField('Comments',verbose_name='نظرات')
     price = models.DecimalField(max_digits=10,decimal_places=0,verbose_name='قیمت')
     pointByCheif = models.IntegerField(verbose_name='نمره آشپز',help_text='در اینجا نمره آشپز را وارد نمایید')
     createdDate = models.DateTimeField(auto_now=True)
@@ -74,11 +75,18 @@ class Order(models.Model):
 
     name = models.CharField(max_length=150,blank=True,verbose_name='عنوان سفارش')
     timeDelay = models.IntegerField(verbose_name='تایمر سفارش',blank=True)
-    # user =
+    user = models.ForeignKey(get_user_model(),on_delete=models.CASCADE)
     foods = models.ManyToManyField(Foods,verbose_name='غذا های سفارش شده')
     createdDate = models.DateTimeField(auto_now=True)
     updatedDate = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f'{self.name} | {self.user}'
+
+    class Meta:
+        verbose_name = 'سفارش'
+        verbose_name_plural = 'سفارشات'
+        ordering = ['-timeDelay']
 
 class Comments(models.Model):
 
@@ -87,11 +95,19 @@ class Comments(models.Model):
         No any special thing, just a simple table
     '''
 
-    # user =
+    user = models.ForeignKey(get_user_model(),on_delete=models.CASCADE)
     body = models.TextField(verbose_name='نظر',help_text='در اینجا میتونید نظرتون رو وارد کنید')
     createdDate = models.DateTimeField(auto_now=True)
     updatedDate = models.DateTimeField(auto_now_add=True)
 
+
+    def __str__(self):
+        return f'{self.user} | {self.body[:15]}...'
+
+    class Meta:
+        verbose_name = 'نظر'
+        verbose_name_plural = 'نظرات'
+        ordering = ['createdDate']
 
 
 # pull requests in this file may not acceptable  
