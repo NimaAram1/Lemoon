@@ -7,6 +7,7 @@
 
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
+from .managers import UserManager
 
 class User(AbstractBaseUser):
 
@@ -21,7 +22,7 @@ class User(AbstractBaseUser):
     birth_date = models.DateField(verbose_name='تاریخ تولد')
     is_active = models.BooleanField(default=True) 
     is_admin = models.BooleanField(default=False) 
-
+    objects = UserManager()
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['birth_date','first_name','last_name']
 

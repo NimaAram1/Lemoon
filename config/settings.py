@@ -40,9 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # my apps 
-
-    'resturant.apps.ResturantConfig',
-    'account.apps.AccountConfig'
+    
+    'account.apps.AccountConfig',
+    'resturant.apps.ResturantConfig'
+    
 ]
 
 MIDDLEWARE = [
