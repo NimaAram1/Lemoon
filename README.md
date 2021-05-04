@@ -5,15 +5,15 @@ you can see demo version from [here](https://lemoonad.herokuapp.com/)
 for setup first change `.env.sample` to `.env`
 and fill the blank gaps with your information
 so, this:
-`python
+```python
 DEBUG=
 SECRET_KEY=
-`
+```
 must be this:
-`python
+```python
 DEBUG=True
 SECRET_KEY=yoursecretkey
-`
+```
 then, run `$ pip install -r requirements.txt`
 now you can ran project with `$ python3 manage.py runserver`
 ## Todo
