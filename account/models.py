@@ -8,6 +8,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from .managers import UserManager
+import datetime
+from django.db.models import Q
 
 class User(AbstractBaseUser):
 
@@ -44,7 +46,10 @@ class User(AbstractBaseUser):
         verbose_name_plural = 'اکانت ها'
         indexes = [
             models.Index(name="email_user_idx",fields=['email'])
-        ]              
+        ]
+        constraints = [
+            models.CheckConstraint(name="check_birth_date",check=models.Q(birth_date__lte="2011-01-01")) 
+        ]             
 
 
 # pull requests in this file may not acceptable
