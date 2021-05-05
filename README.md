@@ -8,11 +8,13 @@ so, this:
 ```python
 DEBUG=
 SECRET_KEY=
+ADMIN_PANEL_URL=
 ```
 must be this:
 ```python
 DEBUG=True
 SECRET_KEY=yoursecretkey
+ADMIN_PANEL_URL=yourlinkadmin
 ```
 then, run `$ pip install -r requirements.txt`
 now you can ran project with `$ python3 manage.py runserver`

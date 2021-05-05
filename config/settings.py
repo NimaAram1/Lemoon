@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     # my apps 
     
     'account.apps.AccountConfig',
-    'resturant.apps.ResturantConfig'
+    'resturant.apps.ResturantConfig',
 
     # third-party packages
 

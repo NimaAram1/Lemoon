@@ -17,9 +17,10 @@ from django.contrib import admin
 from django.urls import path 
 from django.conf import settings
 from django.conf.urls.static import static
+from decouple import config
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path(f'{config("ADMIN_PANEL_URL")}/', admin.site.urls),
 ]
 
 
