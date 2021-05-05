@@ -46,6 +46,10 @@ INSTALLED_APPS = [
     
     'account.apps.AccountConfig',
     'resturant.apps.ResturantConfig'
+
+    # third-party packages
+
+    'rest_framework'
     
 ]
 
