@@ -9,12 +9,28 @@ so, this:
 DEBUG=
 SECRET_KEY=
 ADMIN_PANEL_URL=
+
+
+POSTGRES_NAME_DB=
+POSTGRES_USER=
+POSTGRES_PORT=
+POSTGRES_HOST=
+POSTGRES_PASSWORD=
 ```
 must be this:
 ```python
 DEBUG=True
 SECRET_KEY=yoursecretkey
 ADMIN_PANEL_URL=yourlinkadmin
+DATABASE_TYPE=sqlite 
+
+fill this blanks if database_type = postgres
+
+POSTGRES_NAME_DB=
+POSTGRES_USER=
+POSTGRES_PORT=
+POSTGRES_HOST=
+POSTGRES_PASSWORD=
 ```
 then, run `$ pip install -r requirements.txt`
 now you can ran project with `$ python3 manage.py runserver`
