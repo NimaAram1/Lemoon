@@ -5,14 +5,14 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 # getting user model
 User = get_user_model()
 
-class UserCreateFormAdmin(forms.ModelForms):
+class UserCreateFormAdmin(forms.ModelForm):
 
     password = forms.CharField(widget=forms.PasswordInput,label="رمز عبور")
     repeated_password = forms.CharField(widget=forms.PasswordInput,label="تایید رمز عبور") 
     
     class Meta:
         model = User
-        exclude = ['password']
+        fields = "__all__"
 
     # this method triggered when form submitted
     def clean_repeated_password(self):
