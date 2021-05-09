@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 # getting user model
 User = get_user_model()
@@ -27,3 +28,13 @@ class UserCreateFormAdmin(forms.ModelForms):
             user.save()
         return user     
 
+class UserChangeFormAdmin(forms.ModelForm):
+
+    password = ReadOnlyPasswordHashField()
+
+    class Meta:
+        model = User
+        fields = ["email","password","first_name","last_name"]
+
+    def clean_password(self):
+        return self.initial["password"]    
