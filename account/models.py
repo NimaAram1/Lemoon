@@ -48,7 +48,7 @@ class User(AbstractBaseUser):
             models.Index(name="email_user_idx",fields=['email'])
         ]
         constraints = [
-            models.CheckConstraint(name="check_birth_date",check=models.Q(birth_date__lte=f"{datetime.date.today().year}-01-01")) 
+            models.CheckConstraint(name="check_birth_date",check=models.Q(birth_date__lte=f"{datetime.date.today().year-10}-01-01")) 
         ]             
 
 

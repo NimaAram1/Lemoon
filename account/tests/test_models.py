@@ -44,6 +44,3 @@ class AccountModelTests(TestCase):
 
         with self.assertRaises(IntegrityError):
             user.save()
-
-        
-
