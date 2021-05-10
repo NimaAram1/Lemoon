@@ -5,5 +5,5 @@ app_name = "account"
 
 
 urlpatterns = [
-   # path("wtype/registeration",views.registeration.as_view(),name="registeration")
+   path("wtype/registeration",views.registeration.as_view(),name="registeration")
 ]

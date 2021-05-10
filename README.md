@@ -38,5 +38,7 @@ now you can ran project with `$ python3 manage.py runserver`
 - [x] creating basics of project
 - [x] resturant model
 - [x] add environment variables to django
+- [x] create registeration api end-point
+- [ ] need login method in registeration
 - [ ] complete resturant model 
 - [ ] and a lot of things must be do
