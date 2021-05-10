@@ -49,7 +49,10 @@ INSTALLED_APPS = [
 
     # third-party packages
 
-    'rest_framework'
+    'rest_framework',
+    'rest_framework.authtoken',
+    
+
     
 ]
 
@@ -167,3 +170,11 @@ django_heroku.settings(locals())
 
 MEDIA_URL  = '/var/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# rest configs
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
