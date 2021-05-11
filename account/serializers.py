@@ -1,6 +1,10 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth import authenticate
+from rest_framework.exceptions import AuthenticationFailed
+
+
 
 User = get_user_model()
 
@@ -19,3 +23,24 @@ class RegisterationJwtSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_data["password"] = make_password(validated_data.get("password"))
         return super(RegisterationJwtSerializer, self).create(validated_data)      
+
+
+class LoginJwtSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(write_only=True, max_length=220, min_length=6, help_text="ایمیل خود را وارد نمایید")
+    password = serializers.CharField(write_only=True, required=True, help_text='رمز عبور خود را وارد نمایید') 
+    class Meta:
+        model = User
+        fields = ["email","password"]
+
+    def validate(self, data):
+        email = data["email"]
+        password = data["password"]
+        user = authenticate(email=email, password=password)
+
+        if not user:
+            raise AuthenticationFailed("رمز عبور یا ایمیل شما صحیح نمی باشد.")
+
+        elif not user.is_active:
+            raise AuthenticationFailed("اکانت شما بن شده است؛ لطفا با مدیر سایت هماهنگ کنید")
+
+        return super().validate(data)
