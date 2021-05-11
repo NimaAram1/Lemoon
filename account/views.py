@@ -23,7 +23,14 @@ class registerationApi(APIView):
             User.objects.create_user(email=data.validated_data["email"],
             first_name=data.validated_data["first_name"],last_name=data.validated_data["last_name"],
             password=data.validated_data["password"],birth_date=data.validated_data["birth_date"])
-            return Response({"message":"اکانت شما با موفقیت ساخته شد"})
+            user = authenticate(email=data.validated_data["email"], password=data.validated_data["password"])
+            tokens = RefreshToken.for_user(user) 
+            return Response({
+                "message":"اکانت شما با موفقیت ساخته شد",
+                "access": str(tokens.access_token),
+                "refresh": str(tokens)
+                }
+            , status=status.HTTP_200_OK)
         else:
             return Response(data.errors)
            
