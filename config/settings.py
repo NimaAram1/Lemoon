@@ -51,7 +51,9 @@ INSTALLED_APPS = [
     # third-party packages
 
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'rest_framework_simplejwt.token_blacklist',
+    'corsheaders'
     
 
     
@@ -185,8 +187,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
 SIMPLE_JWT = {
-'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=10),
-'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=20),
+'ACCESS_TOKEN_LIFETIME': datetime.timedelta(minutes=420),
+'REFRESH_TOKEN_LIFETIME': datetime.timedelta(minutes=820),
 'ROTATE_REFRESH_TOKENS': False,
 'BLACKLIST_AFTER_ROTATION': True,
 
@@ -207,6 +209,14 @@ SIMPLE_JWT = {
 'TOKEN_USER_CLASS': 'rest_framework_simplejwt.models.TokenUser',
 
 'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
-'SLIDING_TOKEN_LIFETIME': datetime.timedelta(days=10),
-'SLIDING_TOKEN_REFRESH_LIFETIME': datetime.timedelta(days=20),
+'SLIDING_TOKEN_LIFETIME': datetime.timedelta(minutes=420),
+'SLIDING_TOKEN_REFRESH_LIFETIME': datetime.timedelta(minutes=820),
 }
+
+
+# cors configs
+
+CORS_ALLOW_CREDENTIALS = True
+# CORS_ORIGIN_WHITELIST = [
+#     'http://localhost:3000', # the domain for front-end app(you can add more than 1) 
+# ]

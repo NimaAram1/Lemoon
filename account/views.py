@@ -1,22 +1,31 @@
 from django.shortcuts import render
+from django.views import generic
 from rest_framework import status
+from rest_framework import generics
 from rest_framework.views import APIView, Response
-from .serializers import RegisterationJwtSerializer, LoginJwtSerializer
+from .serializers import (
+    RegisterationJwtSerializer, 
+    LoginJwtSerializer, 
+    LogoutSerializer
+)
 from django.contrib.auth import get_user_model
 from rest_framework.generics import GenericAPIView
 from django.contrib.auth import authenticate
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
+from django.utils.decorators import method_decorator
+
 
 User = get_user_model()
 
-class registerationApi(APIView):
+
+class RegisterationApiView(APIView):
 
     '''
     registeration view
     via jwt
     ''' 
-
     def post(self,request):
         data = RegisterationJwtSerializer(data=request.data) 
         if data.is_valid():
@@ -34,8 +43,8 @@ class registerationApi(APIView):
         else:
             return Response(data.errors)
            
-             
-class loginApi(GenericAPIView):
+
+class LoginApiView(GenericAPIView):
 
     '''
     login view 
@@ -53,3 +62,17 @@ class loginApi(GenericAPIView):
             "access": str(tokens.access_token),
             "refresh": str(tokens)
         }, status=status.HTTP_200_OK)
+
+class LogoutApiView(generics.GenericAPIView):
+
+    serializer_class = LogoutSerializer
+    permission_classes = (IsAuthenticated, )
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response({
+            "پیام": "شما با موفقیت خارج شدید"
+        }, status=status.HTTP_204_NO_CONTENT)

@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate
 from rest_framework.exceptions import AuthenticationFailed
+from rest_framework_simplejwt.tokens import RefreshToken, TokenError
 
 
 
@@ -44,3 +45,23 @@ class LoginJwtSerializer(serializers.ModelSerializer):
             raise AuthenticationFailed("اکانت شما بن شده است؛ لطفا با مدیر سایت هماهنگ کنید")
 
         return super().validate(data)
+
+
+class LogoutSerializer(serializers.Serializer):
+    refresh = serializers.CharField()
+
+    default_error_messages = {
+        "پیام": "توکن شما نامعتبر است"
+    } 
+
+    def validate(self, data):
+        self.token = data["refresh"]
+
+        return data
+
+    def save(self, **kwargs):
+
+        try:
+            RefreshToken(self.token).blacklist()
+        except TokenError:
+            self.fail("توکن شما نامعتبر است")       
