@@ -220,3 +220,7 @@ CORS_ALLOW_CREDENTIALS = True
 # CORS_ORIGIN_WHITELIST = [
 #     'http://localhost:3000', # the domain for front-end app(you can add more than 1) 
 # ]
+
+# email settings 
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

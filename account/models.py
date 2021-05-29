@@ -11,6 +11,7 @@ from .managers import UserManager
 import datetime
 from django.db.models import Q
 
+
 class User(AbstractBaseUser):
 
     '''
@@ -35,7 +36,7 @@ class User(AbstractBaseUser):
         return True
 
     def has_module_perms(self, app_label):
-        return True 
+        return True   
 
     @property
     def is_staff(self):

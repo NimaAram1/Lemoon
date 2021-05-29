@@ -13,9 +13,9 @@ from rest_framework.generics import GenericAPIView
 from django.contrib.auth import authenticate
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
-from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from django.utils.decorators import method_decorator
-
+from .utils import generate6Code
+from django.core.mail import send_mail
 
 User = get_user_model()
 
@@ -76,3 +76,4 @@ class LogoutApiView(generics.GenericAPIView):
         return Response({
             "پیام": "شما با موفقیت خارج شدید"
         }, status=status.HTTP_204_NO_CONTENT)
+
