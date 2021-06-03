@@ -81,10 +81,15 @@ class VerifyCodeEnter(APIView):
     def post(self, request, email):
         
         user_key = User.objects.filter(email=email)
+        if user_key.values_list("is_active")[0][0] == True:
+            return Response({"message": "this account has activated already"})
         if request.data["verify_code"] == user_key.values_list("verify_code")[0][0]:
-            user_key.update(is_active=True) 
-            user = authenticate(email=user_key.values_list("email")[0][0], password=request.data["password"])
-            tokens = RefreshToken.for_user(user)
+            user_key.update(is_active=True)
+            try:
+                user = authenticate(email=user_key.values_list("email")[0][0], password=request.data["password"])
+                tokens = RefreshToken.for_user(user)
+            except:
+                return Response({"error": "wrong password!"})
             return Response({
                 "access": str(tokens.access_token),
                 "refresh": str(tokens)
