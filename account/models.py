@@ -24,7 +24,8 @@ class User(AbstractBaseUser):
     last_name = models.CharField(max_length=100,verbose_name='نام خانوادگی',help_text='در اینجا نام خانوادگی خود را وارد کنید')
     birth_date = models.DateField(verbose_name='تاریخ تولد')
     is_active = models.BooleanField(default=True) 
-    is_admin = models.BooleanField(default=False) 
+    is_admin = models.BooleanField(default=False)
+    verify_code = models.CharField(max_length=6, null=True, blank=True) 
     objects = UserManager()
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['birth_date','first_name','last_name']
