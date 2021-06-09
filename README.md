@@ -16,6 +16,12 @@ POSTGRES_USER=
 POSTGRES_PORT=
 POSTGRES_HOST=
 POSTGRES_PASSWORD=
+
+EMAIL_HOST_USER=
+EMAIL_HOST_PASSWORD=
+EMAIL_PORT=
+EMAIL_USE_TLS=
+DEFAULT_FROM_EMAIL=
 ```
 must be this:
 ```python
@@ -31,6 +37,12 @@ POSTGRES_USER=
 POSTGRES_PORT=
 POSTGRES_HOST=
 POSTGRES_PASSWORD=
+
+EMAIL_HOST_USER=youremail
+EMAIL_HOST_PASSWORD=yourpass
+EMAIL_PORT=yourport
+EMAIL_USE_TLS=True
+DEFAULT_FROM_EMAIL=youremail
 ```
 then, run `$ pip install -r requirements.txt`
 now you can ran project with `$ python3 manage.py runserver`
