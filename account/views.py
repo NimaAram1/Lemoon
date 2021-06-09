@@ -32,9 +32,9 @@ class RegisterationApiView(APIView):
             user_object = User.objects.create_user(email=data.validated_data["email"],
             first_name=data.validated_data["first_name"],last_name=data.validated_data["last_name"],
             password=data.validated_data["password"],birth_date=data.validated_data["birth_date"])
-            user_object.is_active = False
-            user_object.verify_code = code
-            send_mail("Verification Code", f"Your code is: {user_object.verify_code}", "from@example.com", ['to@example.com'])
+            User.objects.filter(email=data.validated_data["email"]).update(verify_code=code)
+            User.objects.filter(email=data.validated_data["email"]).update(is_active=False)
+            send_mail("Verification Code", f"Your code is: {code}", "aramnima50@gmail.com", [f"{data.validated_data['email']}"])
             return Response({
                 "message":"اکانت شما با موفقیت ساخته شد برای استفاده با کد فعالسازی آنرا فعال کنید",
                 }
@@ -85,6 +85,7 @@ class VerifyCodeEnter(APIView):
             return Response({"message": "this account has activated already"})
         if request.data["verify_code"] == user_key.values_list("verify_code")[0][0]:
             user_key.update(is_active=True)
+            user_key.update(verify_code=None)
             try:
                 user = authenticate(email=user_key.values_list("email")[0][0], password=request.data["password"])
                 tokens = RefreshToken.for_user(user)
