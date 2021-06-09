@@ -38,7 +38,7 @@ class RegisterationApiView(APIView):
             return Response({
                 "message":"اکانت شما با موفقیت ساخته شد برای استفاده با کد فعالسازی آنرا فعال کنید",
                 }
-            , status=status.HTTP_200_OK)
+            , status=status.HTTP_201_CREATED)
         else:
             return Response(data.errors)
            
