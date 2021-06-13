@@ -21,7 +21,8 @@ from decouple import config
 
 urlpatterns = [
     path(f'{config("ADMIN_PANEL_URL")}/', admin.site.urls),
-    path('api/', include('account.urls'))
+    path('api/', include('account.urls')),
+    path('api/food/', include('resturant.urls'))
 ]
 
 

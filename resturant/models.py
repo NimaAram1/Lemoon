@@ -49,9 +49,9 @@ class Foods(models.Model):
     
     title = models.CharField(max_length=120,verbose_name='اسم غذا')
     description = models.TextField(verbose_name='توضیحات کامل غذا',help_text='در اینجا میتوانید توضیحات کاملی از غذا ارائه کنید')
-    cover = models.ImageField(upload_to='uploads/images/foods',verbose_name='عکس غذا',help_text='در اینجا میتوانید عکس محصول را برای جذب مشتری آپلود کنید')
+    cover = models.ImageField(upload_to='uploads/images/foods',verbose_name='عکس غذا',help_text='در اینجا میتوانید عکس محصول را برای جذب مشتری آپلود کنید', blank=True, default="def.png")
     foods_resturant = models.OneToOneField(Resturant,on_delete=models.CASCADE,verbose_name="رستورانی که این غذا را پخت میکند",related_name="rfood") 
-    comments = models.ManyToManyField('Comments',verbose_name='نظرات')
+    comments = models.ManyToManyField('Comments',verbose_name='نظرات',blank=True)
     price = models.DecimalField(max_digits=10,decimal_places=0,verbose_name='قیمت')
     pointByCheif = models.FloatField(verbose_name='نمره آشپز',help_text='در اینجا نمره آشپز را وارد نمایید')
     createdDate = models.DateTimeField(auto_now_add=True)
